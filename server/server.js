@@ -3,6 +3,9 @@ const fs = require('fs-extra')
 const express = require('express')
 const multer = require("multer")
 const cors = require("cors")
+
+const util= require('util');
+const encoder = new util.TextEncoder('utf-8');
 //DB
 const mongoClient = require("mongodb").MongoClient;
 //Parsers
