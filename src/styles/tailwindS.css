@@ -4,7 +4,7 @@
 
 @layer components {
   .Post {
-    @apply flex justify-start m-8 p-2 border-8 border-slate-200 bg-slate-100 rounded-md shadow-lg h-60;
+    @apply flex justify-start m-8 p-2 border-8 border-slate-200 bg-slate-100 rounded-md shadow-lg h-64;
   }
   .Form {
     @apply mt-8 p-2 border-8 border-slate-200 bg-slate-100 rounded-md shadow-lg; 

@@ -12,9 +12,11 @@ let folderImage = 0;
 let numImage;
 
 module.exports.numberImage = () =>{
+  
   if (numImage === undefined) {
     numImage = 0;
   }
+  console.log("numImage: " + numImage)
   return numImage;
 }
 
@@ -35,7 +37,7 @@ module.exports.subPosts = (app, dbIn) => {
 app.get('/data/:threadId', jsonParser, function (request, response) {
   folderImage = request.params["threadId"];
   console.log("folderImage: " + folderImage)
-  console.log("numImage: " + numImage)
+  
 
   fs.mkdirsSync('./uploads/' + folderImage, { recursive: true })
 

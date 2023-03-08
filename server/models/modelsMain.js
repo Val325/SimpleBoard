@@ -4,6 +4,7 @@ const express = require('express')
 const cors = require("cors")
 const jsonParser = express.json()
 const modelsImages = require("./modelImages.js")
+const modelsDB = require("./modelDB.js")
 require('dotenv').config()
 
 
@@ -24,6 +25,9 @@ module.exports.mainPage = (app, dbIn) => {
 	})
 
 	app.get('/data', jsonParser, function (request, response) {
+    modelsDB.PostsGet(response, dbIn);
+
+    /*
 		try{
 		  dbIn.connect().then(Client => {
 		  const db = dbIn.db("posts")
@@ -39,19 +43,19 @@ module.exports.mainPage = (app, dbIn) => {
 		} finally {
 		  setTimeout(() => 
 		  dbIn.close().then(()=>console.log("Connection closed")), 1500)
-		}
+		}*/
 	})
 
 	app.post('/data', jsonParser, function (request, response, next) {
   
-
-
+    modelsDB.PostPost(request, dbIn, modelsImages);
+  /*
    try {
     dbIn.connect().then(Client => {
     const db = dbIn.db("posts")
     const collection = db.collection("postsAnons")
 
-    collection.count().then((count) => {
+    .then((count) => {
       const resMax = collection.find({}).toArray(function (err, res) {
       //res[lengthArray-1].id != undefined ? res[lengthArray-1].id++ : 0;
       let lengthArray = (typeof res.length != "undefined") ? res.length : 0;
@@ -73,6 +77,7 @@ module.exports.mainPage = (app, dbIn) => {
       console.log("----------------------")
       console.log("One iteration post")
       console.log("----------------------")
+      console.log("resMax: " + resMax)
       console.log("JPGnum: " + modelsImages.JPGnum)
       console.log("postsMax: " + modelsImages.postsMax)
       console.log("id last post: " + postIdLast.id)
@@ -134,5 +139,5 @@ module.exports.mainPage = (app, dbIn) => {
 }finally {
   setTimeout(() => 
   dbIn.close().then(()=>console.log("Connection closed")), 1500)
-}})
+}*/})
 }

@@ -14,7 +14,7 @@ return (
 	<div>
 		<ul className="flex flex-row ml-8 p-4">
             {pageNumbers.map((number) => (
-            	<Link to={`/thread/${number}`}>
+            	<Link to={`/b/thread/${number}`}>
 	               <div key={number} onClick={() => paginate(number)} className="Pagination-page">
 	               		{number}
 	               </div>

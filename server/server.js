@@ -4,6 +4,8 @@ const express = require('express')
 const multer = require("multer")
 const cors = require("cors")
 
+
+
 const util= require('util');
 const encoder = new util.TextEncoder('utf-8');
 //DB
@@ -25,6 +27,8 @@ require('dotenv').config()
 const FormData = require('form-data');
 const path = require('path');
 
+const DB = modelDB.clientDB.connect()
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -33,14 +37,14 @@ app.use(cors({
         credentials: false,
     }))
 
-modelMain.mainPage(app, modelDB.clientDB)
-modelSubPosts.subPosts(app, modelDB.clientDB)
+modelMain.mainPage(app, DB)
+modelSubPosts.subPosts(app, DB)
 modelsImages.images(app)
 
 
 front.api(app)
 
-admin.admin(app, modelDB.clientDB, "Users")
+admin.admin(app, DB, "Users")
 
 
 app.listen(4000, () => {
