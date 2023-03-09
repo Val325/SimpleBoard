@@ -5,6 +5,7 @@ const multer = require("multer")
 const cors = require("cors")
 const jsonParser = express.json()
 const modelsImages = require("./modelImages.js")
+const modelDB = require("./modelDB.js")
 
 let postCounter;
 
@@ -12,17 +13,26 @@ let folderImage = 0;
 let numImage;
 
 module.exports.numberImage = () =>{
-  
   if (numImage === undefined) {
     numImage = 0;
   }
   console.log("numImage: " + numImage)
   return numImage;
 }
+module.exports.setNumberImage = (num) =>{
+  numImage = num;
+  console.log("numImage: " + numImage)
+  return numImage;
+}
 
-module.exports.folderImage = () =>{
+module.exports.getFolderImage = () =>{
   return folderImage;
 }
+module.exports.setFolderImage = (num) =>{
+  folderImage = num;
+  return folderImage;
+}
+
 
 module.exports.subPosts = (app, dbIn) => {
   app.use(express.json());
@@ -35,10 +45,11 @@ module.exports.subPosts = (app, dbIn) => {
 
 //GetSubposts
 app.get('/data/:threadId', jsonParser, function (request, response) {
-  folderImage = request.params["threadId"];
-  console.log("folderImage: " + folderImage)
-  
-
+  //folderImage = request.params["threadId"];
+  //console.log("folderImage: " + folderImage)
+  modelDB.subPostsGet(request, response)
+})
+  /*
   fs.mkdirsSync('./uploads/' + folderImage, { recursive: true })
 
   let filesInner = fs.readdirSync('./uploads/' + folderImage);
@@ -64,10 +75,16 @@ app.get('/data/:threadId', jsonParser, function (request, response) {
     dbIn.close().then(()=>console.log("Connection closed")), 1500)
   }
 })
-
+*/
 //Subposts
 app.post('/data/:threadId', jsonParser, function (request, response, next) {
 
+  modelDB.subPostPost(request)
+
+})
+
+}
+  /*
   let today = new Date();
   let now = today.toLocaleString();
 
@@ -115,6 +132,6 @@ app.post('/data/:threadId', jsonParser, function (request, response, next) {
           dbIn.close().then(()=>console.log("Connection closed")), 2500)
 
      })} catch(e) {
-}})
+    }
 
-}
+*/

@@ -4,7 +4,7 @@ const express = require('express')
 const multer = require("multer")
 const cors = require("cors")
 const path = require('path');
-const modelsImages = require("./modelsSubPost.js")
+const modelsImg = require("./modelsSubPost.js")
 
 
 const postsMax = 9;
@@ -52,7 +52,7 @@ module.exports.images = (app) => {
 	const storagePosts = multer.diskStorage({
 	  destination: function (req, file, cb) {
 	    
-	    let pathLoad = `../uploads/${modelsImages.folderImage()}`;
+	    let pathLoad = `../uploads/${modelsImg.getFolderImage()}`;
 	    //are has directory?
 	    fs.mkdirsSync(pathLoad, { recursive: true })
 	      
@@ -62,7 +62,7 @@ module.exports.images = (app) => {
 	  },
 	  filename: function (req, file, cb) {
 	    
-	    cb(null, String(modelsImages.numberImage()) + ".jpg")
+	    cb(null, String(modelsImg.numberImage()) + ".jpg")
 	  }
 	})
 	var upload = multer({ storage: storage,limits: { fileSize: 10 * 1000 * 1000 }})//
